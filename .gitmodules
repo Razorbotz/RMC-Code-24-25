@@ -1,0 +1,9 @@
+[submodule "ROS2"]
+	path = ROS2
+	url = https://github.com/Razorbotz/ROS2
+[submodule "C++"]
+	path = C++
+	url = https://github.com/Razorbotz/CPP
+[submodule "CPP"]
+	path = CPP
+	url = https://github.com/Razorbotz/CPP

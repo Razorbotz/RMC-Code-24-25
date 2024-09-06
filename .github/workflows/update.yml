@@ -1,0 +1,35 @@
+name: Submodule Update
+
+on:
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+    - name: Create local changes
+      run: |
+        git submodule update --init --recursive --remote
+
+    - name: Commit files
+      run: |
+        git config --local user.email "andrewburroughs17@gmail.com"
+        git config --local user.name "Andrew Burroughs"
+        git commit -m "Submodule Update" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: refs/heads/update
+        force: true
+
+    - name: Create Pull Request
+      run: |
+        gh pr create --title "Submodule Update" --body "Updated Submodules" --base master --head update 
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_PAT }}
